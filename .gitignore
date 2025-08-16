@@ -73,7 +73,7 @@ build/
 # Installer logs
 pip-log.txt
 pip-delete-this-directory.txt
-
+keys
 # Unit test / coverage reports
 htmlcov/
 .tox/
