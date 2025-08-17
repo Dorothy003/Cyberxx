@@ -9,7 +9,7 @@ pnpm-debug.log*
 dist/
 build/
 coverage/
-
+keys/
 # Logs
 logs/
 *.log
