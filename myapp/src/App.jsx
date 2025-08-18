@@ -8,7 +8,7 @@ import { Toaster } from "react-hot-toast";
 export default function App() {
   return (
     <div className="min-h-screen bg-gray-900 p-8 font-sans text-gray-200">
-      {/* Header */}
+      
       <header className="flex justify-between items-center mb-8">
         <h1 className="text-3xl font-extrabold text-indigo-400">
           🔒 SecureVault
@@ -18,7 +18,7 @@ export default function App() {
         </button>
       </header>
 
-      {/* Panels */}
+     
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div>
           <EncryptionPanel />
@@ -30,13 +30,10 @@ export default function App() {
           <VerificationPanel />
         </div>
       </div>
-
-      {/* Activity Log */}
       <div className="mt-10">
         <ActivityLog />
       </div>
-
-      <Toaster position="top-right" />
+      <Toaster position="center" />
     </div>
   );
 }

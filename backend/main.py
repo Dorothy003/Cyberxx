@@ -3,7 +3,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.database import Base, engine
 from backend.routes import keys, files, users, activity
-
+from backend.routes import debug
 # Create database tables
 Base.metadata.create_all(bind=engine)
 
@@ -24,7 +24,7 @@ app.include_router(keys.router, prefix="/keys", tags=["Keys"])
 app.include_router(users.router, prefix="/users", tags=["Users"])
 app.include_router(files.router, prefix="/files", tags=["Files"])
 app.include_router(activity.router, prefix="/activity", tags=["Activity"])
-
+app.include_router(debug.router,prefix="/d",tags=["Debug"])
 # Health check endpoint
 @app.get("/health")
 def health():

@@ -15,15 +15,12 @@ KEYS_DIR.mkdir(exist_ok=True)
 @router.post("/generate")
 def generate_keys():
     priv, pub = generate_rsa_keypair()
-    # return PEM decoded as utf-8 strings (clients can store private locally)
+    
     return {"private_key": priv.decode(), "public_key": pub.decode()}
 
 @router.post("/upload")
 def upload_keys(payload: dict, db: Session = Depends(get_db)):
-    """
-    Accepts JSON:
-    { "username": "...", "public_key_pem": "...", optional priv_salt_b64, priv_nonce_b64, priv_cipher_b64 }
-    """
+   
     username = payload.get("username")
     if not username:
         raise HTTPException(status_code=400, detail="username required")
@@ -33,7 +30,7 @@ def upload_keys(payload: dict, db: Session = Depends(get_db)):
         user = User(username=username)
     if pub_text:
         user.public_key_pem = pub_text.encode()
-    # store optional encrypted private key pieces (base64 strings)
+  
     if payload.get("priv_salt_b64"):
         user.priv_salt = base64.b64decode(payload["priv_salt_b64"])
     if payload.get("priv_nonce_b64"):
@@ -41,6 +38,7 @@ def upload_keys(payload: dict, db: Session = Depends(get_db)):
     if payload.get("priv_cipher_b64"):
         user.priv_cipher = base64.b64decode(payload["priv_cipher_b64"])
    
+    db.add(user)   
     db.commit()
     db.refresh(user)
     return {"id": user.id, "username": user.username}
